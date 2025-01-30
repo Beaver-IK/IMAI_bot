@@ -1,16 +1,10 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Avg
 from django.shortcuts import get_object_or_404
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, status, viewsets
-from rest_framework.decorators import action
-from rest_framework.permissions import (AllowAny, IsAuthenticated,
-                                        IsAuthenticatedOrReadOnly)
+from rest_framework import status
+from rest_framework.permissions import (AllowAny, IsAuthenticated)
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
 
-from api import permissions as pms
 from api import serializers as sz
 from api.utils import get_info
 
@@ -39,7 +33,7 @@ class SignUpView(APIView):
             username=username)[0]
         user.save()
         return Response(
-            dict(email=user.email, username=user.username),
+            dict(telegram_id=user.telegram_id, username=user.username),
             status=status.HTTP_200_OK,
         )
 

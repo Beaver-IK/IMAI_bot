@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import NotFound, ValidationError
 
 from users import constants as cu
-from utils import already_use
+from api.utils import already_use
 
 User = get_user_model()
 
