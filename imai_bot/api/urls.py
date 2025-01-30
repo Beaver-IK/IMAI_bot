@@ -2,7 +2,6 @@ from django.urls import include, path
 
 from api import views as v
 
-
 auth_url = [
     (path('signup/', v.SignUpView.as_view(),
           name='signup')),
