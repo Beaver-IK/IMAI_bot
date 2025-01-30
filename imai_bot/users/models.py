@@ -21,7 +21,6 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
     def create_superuser(self, username, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -69,14 +68,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-    
+
     @classmethod
     def already_use(cls, kwargs):
         username = kwargs.get('username')
         telegram_id = kwargs.get('telegram_id')
         errors = dict()
-        if cls.objects.filter(username=username).exclude(
-            telegram_id=telegram_id).exists():
+        if cls.objects.filter(
+            username=username).exclude(telegram_id=telegram_id).exists():
             errors['username'] = f'Username {username} уже используется.'
         if cls.objects.filter(
             telegram_id=telegram_id).exclude(username=username).exists():
