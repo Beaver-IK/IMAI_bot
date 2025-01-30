@@ -35,7 +35,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'imai_bot.urls'
+ROOT_URLCONF = 'imei_bot.urls'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -55,7 +55,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'imai_bot.wsgi.application'
+WSGI_APPLICATION = 'imei_bot.wsgi.application'
 
 DATABASES = {
     'default': {
