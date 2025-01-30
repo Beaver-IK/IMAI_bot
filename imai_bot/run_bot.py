@@ -48,8 +48,11 @@ def get_imei(imei):
         return e
 
     data = json.loads(response.text)
-    answer = get_answer(data['properties'])
-    return answer
+    properties = data.get('properties')
+    if properties:
+        return get_answer(properties)
+    else:
+        return data
 
 
 def validation_user(id):
@@ -58,7 +61,8 @@ def validation_user(id):
         cur.execute('SELECT * FROM customuser WHERE telegram_id = ?', (id))
         user = cur.fetchone()
         conn.close()
-        return user
+        if user:
+            return user.access_to_the_bot
 
 
 @bot.message_handler(commands=['start'])
