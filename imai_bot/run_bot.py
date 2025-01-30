@@ -1,10 +1,9 @@
 import os
 import requests
 import json
-import threading
-
 from dotenv import load_dotenv
 from telebot import TeleBot
+import sqlite3
 
 load_dotenv()
 
@@ -47,16 +46,29 @@ def get_imei(imei):
     answer = get_answer(data['properties'])
     return answer
 
+def validation_user(id):
+    with sqlite3.connect('db.sqlite3') as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM customuser WHERE telegram_id = ?', (id))
+        user = cur.fetchone()
+        conn.close()
+        return user
+
 
 @bot.message_handler(commands=['start'])
-def wake_up(message):
+async def wake_up(message):
     chat_id = message.chat.id
     name = message.from_user.first_name
-    
-    bot.send_message(
-        chat_id=chat_id,
-        text=f'Привет, {name}. Введи интересующий IMEI',
-    )
+    if validation_user(message.from_user.id):
+        bot.send_message(
+            chat_id=chat_id,
+            text=f'Привет, {name}. Введи интересующий IMEI',
+        )
+    else:
+        bot.send_message(
+            chat_id=chat_id,
+            text=f'Привет, {name}. У тебя нет доступа к сервису',
+        )
 
 @bot.message_handler(func=lambda message: True)
 def get_imei_info(message):
@@ -71,7 +83,6 @@ def get_imei_info(message):
 
 def main():
     bot.polling(none_stop=True)
-
 
 if __name__ == '__main__':
     main()
