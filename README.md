@@ -8,12 +8,12 @@
 
 ### Аутентификация
 
-*   `POST /api/auth/signup/`
+*   `POST` `http://imei.ddns.net/api/auth/signup/`
     *   **Описание:** Регистрация нового пользователя.
     *   **Параметры тела запроса (JSON):** `username`, `telegram_id`.
     *   **Ответ:**
         *   `201 Created`: Пользователь успешно зарегистрирован.
-*   `POST /api/auth/token/`
+*   `POST` `http://imei.ddns.net/api/auth/token/`
     *   **Описание:** Получение JWT-токена.
     *   **Параметры тела запроса (JSON):** `username`, `telegram_id`.
     *   **Ответ:**
@@ -22,7 +22,7 @@
 
 ### Функционал
 
-*   `POST /api/check-imei/`
+*   `POST` `http://imei.ddns.net/api/check-imei/`
     *   **Описание:** Получение инормации об устройстве по IMEI.
     *   **Параметры тела запроса (JSON):** `imei`, `token`. IMEI устройства и TOKEN для аутентификации в стороннем сервисе.
     *   **Ответ:**
